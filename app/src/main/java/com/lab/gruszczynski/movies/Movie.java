@@ -7,9 +7,9 @@ public class Movie {
     private String title;
     private String genre;
     private String year;
-
-    public Movie(){
-    }
+    private String description;
+    private Boolean watchedByUser=false;
+    private int posterDrawable;
 
     public Movie(String title, String genre, String year) {
         this.title = title;
@@ -29,15 +29,32 @@ public class Movie {
         return genre;
     }
 
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
     public String getYear() {
         return year;
     }
 
-    public void setYear(String year) {
-        this.year = year;
+    public Boolean getWatchedByUser() {
+        return watchedByUser;
     }
+
+    public void setWatchedByUser(Boolean watchedByUser) {
+        this.watchedByUser = watchedByUser;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getPosterDrawable() {
+        return posterDrawable;
+    }
+
+    public void setPosterDrawable(int posterDrawable) {
+        this.posterDrawable = posterDrawable;
+    }
+
 }

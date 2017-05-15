@@ -1,15 +1,29 @@
-package com.lab.gruszczynski.movies;
+package com.lab.gruszczynski.movies.fragment;
 
+import android.app.Fragment;
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import com.lab.gruszczynski.movies.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-public class MainActivity extends AppCompatActivity{
+/**
+ * Created by maciej on 15.05.17.
+ */
+
+
+public class MainFragment extends Fragment{
 
     private List<Movie> movieList = new ArrayList<>();
     private RecyclerView recyclerView;
@@ -19,29 +33,34 @@ public class MainActivity extends AppCompatActivity{
     private Context context;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        /*context = this;
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_main, container, false);
+    }
 
-        mAdapter = new MoviesAdapter(movieList, this);
-        mLayoutManager = new LinearLayoutManager(getApplicationContext());
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        context = getActivity();
+        recyclerView = (RecyclerView) getView().findViewById(R.id.recycler_view);
+
+        mAdapter = new MoviesAdapter(movieList, context);
+        mLayoutManager = new LinearLayoutManager(context);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), mLayoutManager.getOrientation());
         recyclerView.addItemDecoration(mDividerItemDecoration);
         recyclerView.setAdapter(mAdapter);
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getApplicationContext(), recyclerView, new RecyclerTouchListener.ClickListener() {
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(context, recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Movie movie = mAdapter.getMovie(position);
-                Toast.makeText(getApplicationContext(), movie.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
+                /*Movie movie = mAdapter.getMovie(position);
+                Toast.makeText(context, movie.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(view.getContext(), MovieActivity.class);
                 intent.putExtra("title", movie.getTitle());
                 intent.putExtra("description", movie.getDescription());
-                intent.putExtra("posterDrawable", movie.getPosterDrawable());
+                intent.putExtra("posterDrawable", movie.getPosterDrawable());*/
+                Intent intent = new Intent(view.getContext(), MovieInfo.class);
+
                 startActivity(intent);
             }
 
@@ -53,10 +72,11 @@ public class MainActivity extends AppCompatActivity{
         }));
 
         setUpItemTouchHelper();
-        prepareMovieData();*/
+        prepareMovieData();
+        super.onActivityCreated(savedInstanceState);
     }
 
-    /*private void prepareMovieData() {
+    private void prepareMovieData() {
         Movie movie = new Movie("Mad Max: Fury Road", "Action & Adventure", "2015");
         movieList.add(movie);
 
@@ -118,7 +138,7 @@ public class MainActivity extends AppCompatActivity{
                     break;
                 case 2:
                     m.setPosterDrawable(R.drawable.martian);
-                break;
+                    break;
 
             }
         }
@@ -146,5 +166,6 @@ public class MainActivity extends AppCompatActivity{
         };
         ItemTouchHelper mItemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
         mItemTouchHelper.attachToRecyclerView(recyclerView);
-    }*/
+    }
+
 }
