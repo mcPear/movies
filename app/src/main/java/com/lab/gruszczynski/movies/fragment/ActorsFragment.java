@@ -37,8 +37,6 @@ public class ActorsFragment extends Fragment {
         actor1TextV.setText("Loenardo DiCaprio");
         actor2TextV.setText("Angelina Jolie");
         actor3TextV.setText("Johny Depp");
-        //GridView gridview = (GridView) getView().findViewById(R.id.gridview);
-        //gridview.setAdapter(new PicsFragment.ImageAdapter(context));
         super.onActivityCreated(savedInstanceState);
     }
 }

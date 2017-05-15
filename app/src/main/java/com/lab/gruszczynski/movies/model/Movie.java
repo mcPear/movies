@@ -1,4 +1,4 @@
-package com.lab.gruszczynski.movies;
+package com.lab.gruszczynski.movies.model;
 
 /**
  * Created by maciej on 14.04.17.

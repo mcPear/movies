@@ -1,4 +1,4 @@
-package com.lab.gruszczynski.movies;
+package com.lab.gruszczynski.movies.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.lab.gruszczynski.movies.R;
+import com.lab.gruszczynski.movies.model.Movie;
 
 import java.util.List;
 

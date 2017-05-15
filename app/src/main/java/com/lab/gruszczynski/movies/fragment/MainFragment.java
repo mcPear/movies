@@ -12,7 +12,11 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import com.lab.gruszczynski.movies.*;
+import com.lab.gruszczynski.movies.adapter.MoviesAdapter;
+import com.lab.gruszczynski.movies.listener.RecyclerTouchListener;
+import com.lab.gruszczynski.movies.model.Movie;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,30 +54,29 @@ public class MainFragment extends Fragment{
         mDividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), mLayoutManager.getOrientation());
         recyclerView.addItemDecoration(mDividerItemDecoration);
         recyclerView.setAdapter(mAdapter);
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(context, recyclerView, new RecyclerTouchListener.ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                /*Movie movie = mAdapter.getMovie(position);
-                Toast.makeText(context, movie.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(view.getContext(), MovieActivity.class);
-                intent.putExtra("title", movie.getTitle());
-                intent.putExtra("description", movie.getDescription());
-                intent.putExtra("posterDrawable", movie.getPosterDrawable());*/
-                Intent intent = new Intent(view.getContext(), MovieInfo.class);
-
-                startActivity(intent);
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-                mAdapter.getMovie(position).setWatchedByUser(true);
-                mAdapter.notifyItemChanged(position);
-            }
-        }));
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(context, recyclerView, new MovieTouchlistener()));
 
         setUpItemTouchHelper();
         prepareMovieData();
         super.onActivityCreated(savedInstanceState);
+    }
+
+    private class MovieTouchlistener implements RecyclerTouchListener.ClickListener{
+        @Override
+        public void onClick(View view, int position) {
+                Movie movie = mAdapter.getMovie(position);
+                Toast.makeText(context, movie.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(view.getContext(), MovieActivity.class);
+                intent.putExtra("title", movie.getTitle());
+                intent.putExtra("description", movie.getDescription());
+                intent.putExtra("posterDrawable", movie.getPosterDrawable());
+            startActivity(intent);
+        }
+        @Override
+        public void onLongClick(View view, int position) {
+            mAdapter.getMovie(position).setWatchedByUser(true);
+            mAdapter.notifyItemChanged(position);
+        }
     }
 
     private void prepareMovieData() {
